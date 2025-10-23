@@ -1,9 +1,495 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Hello World</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noah Maeschli | Software Engineer</title>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0f172a;
+        --bg-card: rgba(15, 23, 42, 0.85);
+        --bg-card-hover: rgba(30, 41, 59, 0.9);
+        --accent: #38bdf8;
+        --accent-soft: rgba(56, 189, 248, 0.3);
+        --text-primary: #e2e8f0;
+        --text-secondary: #94a3b8;
+        --border: rgba(148, 163, 184, 0.2);
+        --gradient: radial-gradient(circle at top left, rgba(56, 189, 248, 0.3), transparent 55%),
+          radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.35), transparent 60%);
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text-primary);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 0 1.5rem;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: var(--gradient);
+        z-index: -2;
+        transform: scale(1.1);
+      }
+
+      main {
+        width: 100%;
+        max-width: 1080px;
+        padding: 4rem 0 5rem;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4rem;
+      }
+
+      .logo {
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+      }
+
+      nav {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      nav a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        letter-spacing: 0.01em;
+        transition: color 0.25s ease;
+      }
+
+      nav a:hover {
+        color: var(--text-primary);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        margin-bottom: 4rem;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        background: rgba(56, 189, 248, 0.15);
+        color: var(--accent);
+        font-size: 0.9rem;
+        font-weight: 600;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        margin-bottom: 1.3rem;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 6vw, 3.5rem);
+        margin: 0 0 1.2rem;
+        line-height: 1.1;
+      }
+
+      .hero p {
+        color: var(--text-secondary);
+        font-size: 1.05rem;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+      }
+
+      .cta-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.85rem 1.6rem;
+        border-radius: 999px;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.01em;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        border: 1px solid transparent;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+        color: #0f172a;
+        box-shadow: 0 15px 35px rgba(56, 189, 248, 0.35);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 40px rgba(56, 189, 248, 0.45);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--text-primary);
+        border-color: var(--border);
+      }
+
+      .btn-secondary:hover {
+        border-color: rgba(148, 163, 184, 0.4);
+        transform: translateY(-2px);
+      }
+
+      .hero-card {
+        background: rgba(15, 23, 42, 0.86);
+        border: 1px solid var(--border);
+        border-radius: 1.2rem;
+        padding: 1.8rem;
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.4);
+      }
+
+      .hero-card p {
+        margin: 0.6rem 0 0;
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .hero-card strong {
+        color: var(--text-primary);
+      }
+
+      section {
+        margin-bottom: 3.5rem;
+      }
+
+      .section-heading {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1.2rem;
+      }
+
+      .section-heading::before {
+        content: "";
+        width: 36px;
+        height: 2px;
+        background: var(--accent);
+        border-radius: 999px;
+      }
+
+      .about {
+        display: grid;
+        gap: 1.5rem 3rem;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 1.2rem;
+        padding: 1.9rem;
+        transition: border 0.25s ease, transform 0.25s ease, background 0.25s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+        background: var(--bg-card-hover);
+        border-color: rgba(148, 163, 184, 0.35);
+      }
+
+      .card h3 {
+        margin: 0 0 0.6rem;
+        font-size: 1.2rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        font-size: 0.95rem;
+      }
+
+      .grid {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 0.7rem;
+      }
+
+      li {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.1rem;
+      }
+
+      .tag {
+        padding: 0.35rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(148, 163, 184, 0.15);
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+      }
+
+      footer {
+        margin-top: 4rem;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-top: 2.5rem;
+        border-top: 1px solid var(--border);
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.25s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--text-primary);
+      }
+
+      @media (max-width: 900px) {
+        header {
+          flex-direction: column;
+          gap: 1.4rem;
+          align-items: flex-start;
+        }
+
+        nav {
+          flex-wrap: wrap;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 1.8rem;
+        }
+
+        .hero-card {
+          order: -1;
+        }
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 0 1rem;
+        }
+
+        .cta-group {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello World</h1>
+    <main>
+      <header>
+        <span class="logo">Noah Maeschli</span>
+        <nav>
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+      <section class="hero">
+        <div>
+          <span class="badge">Software Engineer • Builder • Explorer</span>
+          <h1>Designing delightful digital experiences.</h1>
+          <p>
+            I’m Noah Maeschli, a software engineer who loves shaping ideas into intuitive products.
+            I build polished interfaces, scalable systems, and everything in-between with a focus on
+            craft, clarity, and performance.
+          </p>
+          <div class="cta-group">
+            <a class="btn btn-primary" href="mailto:noah@maeschli.dev">Start a conversation</a>
+            <a class="btn btn-secondary" href="#projects">See recent work</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h3>What drives me</h3>
+          <p>
+            <strong>Curiosity</strong> keeps me learning. <strong>Empathy</strong> keeps me user-focused.
+            <strong>Craft</strong> keeps me sweating details. Together, they guide how I build software that
+            feels thoughtful and trustworthy.
+          </p>
+        </div>
+      </section>
+      <section id="about">
+        <div class="section-heading">About</div>
+        <div class="about">
+          <div class="card">
+            <h3>The short version</h3>
+            <p>
+              I’m a full-stack engineer with a product mindset. I bring designs to life with modern
+              front-end tooling, ship reliable back-end services, and advocate for processes that help
+              teams move fast without breaking trust.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Currently exploring</h3>
+            <ul>
+              <li>Bringing delightful motion to web experiences</li>
+              <li>Design systems that scale across teams</li>
+              <li>AI-assisted tooling for creative workflows</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Strengths</h3>
+            <div class="tag-list">
+              <span class="tag">TypeScript</span>
+              <span class="tag">React</span>
+              <span class="tag">Next.js</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">GraphQL</span>
+              <span class="tag">Product Strategy</span>
+              <span class="tag">Design Systems</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="experience">
+        <div class="section-heading">Experience</div>
+        <div class="grid">
+          <div class="card">
+            <h3>Senior Front-end Engineer · Arcadia Labs</h3>
+            <p>
+              Led the design and implementation of a unified component library that powered six product
+              lines. Reduced design-to-dev cycle time by 40% and improved accessibility scores across
+              the suite.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Product Engineer · Nimbus</h3>
+            <p>
+              Architected a real-time analytics dashboard used by 30k+ teams. Built the front-end pixel
+              tracking SDK and collaborated closely with design to craft a cohesive, responsive UX.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Design Technologist · Freelance</h3>
+            <p>
+              Helped startups experiment fast—rapid prototyping, user testing, and iterating to find the
+              right balance between feasibility and delight for their launch experiences.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section id="projects">
+        <div class="section-heading">Projects</div>
+        <div class="grid">
+          <div class="card">
+            <h3>Palette</h3>
+            <p>
+              An AI-assisted color palette generator for product teams. Generates curated swatches that
+              pass contrast checks and sync directly with Figma component libraries.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Voyager</h3>
+            <p>
+              A travel companion app that personalizes itineraries with live weather, local events, and
+              offline-first maps for frictionless adventures anywhere in the world.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Slate</h3>
+            <p>
+              Minimalist writing environment built for focus. Features granular typography controls,
+              shortcodes, and frictionless publishing to static hosting providers.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section id="contact">
+        <div class="section-heading">Contact</div>
+        <div class="card">
+          <h3>Let’s build something meaningful.</h3>
+          <p>
+            I’m always up for collaborating with curious people. Whether you’re refining a product,
+            exploring a new idea, or just want to talk shop, feel free to drop a line.
+          </p>
+          <div class="cta-group" style="margin-top: 1.4rem">
+            <a class="btn btn-primary" href="mailto:noah@maeschli.dev">Say hello</a>
+            <a class="btn btn-secondary" href="https://www.linkedin.com/in/noahmaeschli" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+          </div>
+        </div>
+      </section>
+      <footer>
+        <span>© <span id="year"></span> Noah Maeschli. Crafted with care.</span>
+        <div class="footer-links">
+          <a href="mailto:noah@maeschli.dev">Email</a>
+          <a href="https://github.com/Noah4m" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/noahmaeschli" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </footer>
+    </main>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
